@@ -60,7 +60,7 @@
         "twig/twig": "^2.12|^3.0",
         "volmarg/blacklist-hub-bridge": "@dev",
         "volmarg/finances-hub-bridge": "@dev",
-        "volmarg/job-searcher-bridge": "@dev",
+        "volmarg/job-offers-handler-bridge": "@dev",
         "volmarg/message-hub-bridge": "@dev"
     },
     "require-dev": {
@@ -118,20 +118,20 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "/var/www/other/message-hub-bridge"
+            "type": "vcs",
+            "url": "https://github.com/Volmarg/message-hub-bridge"
         },
         {
-            "type": "path",
-            "url": "/var/www/bundles/job-searcher-bridge"
+            "type": "vcs",
+            "url": "https://github.com/Volmarg/job-offers-handler-bridge"
         },
         {
-            "type": "path",
-            "url": "/var/www/bundles/blacklist-hub-bridge"
+            "type": "vcs",
+            "url": "https://github.com/Volmarg/finances-hub-bridge"
         },
         {
-            "type": "path",
-            "url": "/var/www/bundles/finances-hub-bridge"
+            "type": "vcs",
+            "url": "https://github.com/Volmarg/blacklist-hub-bridge"
         }
     ]
 }

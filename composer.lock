@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "425dd85ecbfaf5e8348e1ac5bf1fb2d1",
+    "content-hash": "c034b4884ce867e7f87cbe656df4a296",
     "packages": [
         {
             "name": "appwrite/php-clamav",
@@ -10874,11 +10874,17 @@
         },
         {
             "name": "volmarg/blacklist-hub-bridge",
-            "version": "dev-master",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Volmarg/blacklist-hub-bridge.git",
+                "reference": "c1b9fcc02112af68daed7100373da875b98933d9"
+            },
             "dist": {
-                "type": "path",
-                "url": "/var/www/bundles/blacklist-hub-bridge",
-                "reference": "bc4aab4dedda8426e96459a26ec3fa901dcd4daf"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Volmarg/blacklist-hub-bridge/zipball/c1b9fcc02112af68daed7100373da875b98933d9",
+                "reference": "c1b9fcc02112af68daed7100373da875b98933d9",
+                "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
@@ -10891,7 +10897,7 @@
                 "php": ">=8.1",
                 "symfony/console": "5.4.*",
                 "symfony/dotenv": "5.4.*",
-                "symfony/flex": "v1.19.2",
+                "symfony/flex": "^1.3.1",
                 "symfony/framework-bundle": "5.4.*",
                 "symfony/serializer": "v5.4.12",
                 "symfony/yaml": "5.4.*"
@@ -10900,6 +10906,7 @@
                 "symfony/symfony": "*",
                 "symfony/translation-contracts": ">=3.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -10928,17 +10935,25 @@
                 "proprietary"
             ],
             "description": "Bridge for communication with Blacklist Hub",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/Volmarg/blacklist-hub-bridge/tree/main",
+                "issues": "https://github.com/Volmarg/blacklist-hub-bridge/issues"
+            },
+            "time": "2024-07-16T19:55:28+00:00"
         },
         {
             "name": "volmarg/finances-hub-bridge",
-            "version": "dev-master",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Volmarg/finances-hub-bridge.git",
+                "reference": "a01e4c8247e53c7c02e14e4b79d654395ff92175"
+            },
             "dist": {
-                "type": "path",
-                "url": "/var/www/bundles/finances-hub-bridge",
-                "reference": "975e1d1c45fb92b80e4362c5aff62eae29234f35"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Volmarg/finances-hub-bridge/zipball/a01e4c8247e53c7c02e14e4b79d654395ff92175",
+                "reference": "a01e4c8247e53c7c02e14e4b79d654395ff92175",
+                "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
@@ -10960,6 +10975,7 @@
                 "symfony/symfony": "*",
                 "symfony/translation-contracts": ">=3.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -10988,17 +11004,25 @@
                 "proprietary"
             ],
             "description": "Bridge for communication with Finances Hub",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/Volmarg/finances-hub-bridge/tree/main",
+                "issues": "https://github.com/Volmarg/finances-hub-bridge/issues"
+            },
+            "time": "2024-07-16T19:29:54+00:00"
         },
         {
-            "name": "volmarg/job-searcher-bridge",
-            "version": "dev-master",
+            "name": "volmarg/job-offers-handler-bridge",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Volmarg/job-offers-handler-bridge.git",
+                "reference": "264dc5b08c8d9b811f9dc060330f67dfb02f7c48"
+            },
             "dist": {
-                "type": "path",
-                "url": "/var/www/bundles/job-searcher-bridge",
-                "reference": "fbfd5aa3ba951a4c9119efb2fe7cc10722dd641b"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Volmarg/job-offers-handler-bridge/zipball/264dc5b08c8d9b811f9dc060330f67dfb02f7c48",
+                "reference": "264dc5b08c8d9b811f9dc060330f67dfb02f7c48",
+                "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
@@ -11020,6 +11044,7 @@
                 "symfony/symfony": "*",
                 "symfony/translation-contracts": ">=3.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -11048,17 +11073,25 @@
                 "proprietary"
             ],
             "description": "Bridge between job-searcher and any other project",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/Volmarg/job-offers-handler-bridge/tree/main",
+                "issues": "https://github.com/Volmarg/job-offers-handler-bridge/issues"
+            },
+            "time": "2024-07-14T14:15:05+00:00"
         },
         {
             "name": "volmarg/message-hub-bridge",
-            "version": "dev-master",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Volmarg/message-hub-bridge.git",
+                "reference": "65d3fb549a63acd5b28a6d3c4990b899ea09236a"
+            },
             "dist": {
-                "type": "path",
-                "url": "/var/www/other/message-hub-bridge",
-                "reference": "91d25ba189b0d734e321d5cb43453365461a7eb1"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Volmarg/message-hub-bridge/zipball/65d3fb549a63acd5b28a6d3c4990b899ea09236a",
+                "reference": "65d3fb549a63acd5b28a6d3c4990b899ea09236a",
+                "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
@@ -11085,6 +11118,7 @@
             "conflict": {
                 "symfony/symfony": "*"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -11118,9 +11152,11 @@
                 "proprietary"
             ],
             "description": "Bridge between Message Hub and other projects",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/Volmarg/message-hub-bridge/tree/main",
+                "issues": "https://github.com/Volmarg/message-hub-bridge/issues"
+            },
+            "time": "2024-07-14T12:35:21+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -12018,7 +12054,7 @@
     "stability-flags": {
         "volmarg/blacklist-hub-bridge": 20,
         "volmarg/finances-hub-bridge": 20,
-        "volmarg/job-searcher-bridge": 20,
+        "volmarg/job-offers-handler-bridge": 20,
         "volmarg/message-hub-bridge": 20
     },
     "prefer-stable": true,
@@ -12029,5 +12065,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
