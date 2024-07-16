@@ -1,0 +1,10 @@
+file:
+  upload:
+    remove:
+      message:
+        couldNotRemove: "File could not be removed. Tried again later."
+        fileRemoved: "File removed"
+    put:
+      message:
+        genericError: "Could not upload this file"
+        maxUploadReached: "Max uploaded files have been reached"

@@ -1,0 +1,2 @@
+parameters:
+  job_searcher.from_file_provider.file_path: '%kernel.project_dir%/src/Service/Api/JobSearcher/Data/offers.txt'

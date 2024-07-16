@@ -1,0 +1,7 @@
+user.settings.security:
+  save:
+    message:
+      ok: "Updated"
+  password:
+    message:
+      empty: "Password is missing"

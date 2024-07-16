@@ -1,0 +1,3 @@
+parameters:
+  # used to exclude the offers on which user applied on in last X days
+  exclude_applied_on_in_last_days: 14

@@ -1,0 +1,35 @@
+parameters:
+
+  # Project based
+  project_name: "Voltigo"
+  project_name_spaceless: "jooblo" # this is used for example for api auth, not getting displayed anywhere in GUI
+  project_from_email: "no-reply@%project_name_spaceless%.com"
+
+  # Keep in mind that if this time will ever be changed then crontab must also be updated
+  system_disabled_start_time: '01:00:00'
+  system_disabled_end_time: '05:00:00'
+  system_disabled_soon_notify_earlier_min: 30 # users will get displayed message that planned "disabling" will happen in these X minutes
+
+  # Storages / cleanup settings
+  storage_crf_token_lifetime_hours: 2
+  storage_frontend_error_lifetime_hours: 96 # 4 days
+  storage_page_tracking_lifetime_hours: 192 # 8 days
+  storage_amqp_lifetime_hours: 720 # 30 days
+  offer_search_max_lifetime: 576 # 21 Days (should be in sync with offers handler - nothing bad will happen if it won't, just makes sense to keep the same values on both sides)
+  offer_information_max_lifetime: "%offer_search_max_lifetime%"
+  email_attachment_max_lifetime: 48 # 2 days
+  user_deleted_max_lifetime: 720 # 30 days
+  uploaded_file.cleanup_after_hours: 120 # 5 days
+  uploaded_file.cleanup_when_user_deleted_after_hours: 744 # 31 days
+
+  # Paths
+  paths.database.backup: "%kernel.project_dir%/backup/%project_name_spaceless%/database-backup"
+  paths.project_configuration.backup: "%kernel.project_dir%/backup/%project_name_spaceless%/project-configuration"
+  paths.data: "/var/www/data/%project_name_spaceless%"
+  paths.email.attachments: "%kernel.project_dir%/%public.access.data.dir%/email/attachments/"
+  paths.invoice_files.relative_toward_public: "%public.access.data.dir%/invoice/"
+  paths.invoice_files.absolute: "%kernel.project_dir%/public%paths.invoice_files.relative_toward_public%"
+
+  # Websocket
+  websocket.connection_lifetime.non_user_based: 15 # minutes
+  websocket.connection_lifetime.inactive_user:  45 # minutes (must be bigger than jwt token lifetime)

@@ -1,0 +1,37 @@
+monolog:
+  channels: ['notifierProxyLoggerBridge', 'websocket', 'amqp']
+  handlers:
+    file_log:
+      type: rotating_file
+      max_files: 10
+      path: "%kernel.logs_dir%/%kernel.environment%/main.log"
+      level: info
+      channels: ["!security"]
+    security:
+      level: info
+      type: stream
+      path: '%kernel.logs_dir%/%kernel.environment%/security.log'
+      channels: ['security']
+    notifierProxyLoggerBridge:
+      level: debug
+      type: stream
+      path: '%kernel.logs_dir%/%kernel.environment%/notifier_proxy_logger_bridge.log'
+      channels: [ 'notifierProxyLoggerBridge' ]
+    amqp:
+      level: debug
+      type: rotating_file
+      max_files: 14
+      path: '%kernel.logs_dir%/%kernel.environment%/amqp.log'
+      channels: [ 'amqp' ]
+    websocket:
+      level: debug
+      type: rotating_file
+      max_files: 14
+      path: '%kernel.logs_dir%/%kernel.environment%/websocket.log'
+      channels: [ 'websocket' ]
+    deprecation:
+      type: stream
+      level: emergency
+    symfony_mailer:
+      type: service
+      id:   App\Service\Logger\Handler\EmailHandler

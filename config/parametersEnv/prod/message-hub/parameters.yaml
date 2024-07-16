@@ -1,0 +1,3 @@
+parameters:
+  # This ip means that container is using HOST based localhost to access the project under give port
+  message_hub.base_url: "http://host.docker.internal:8006"

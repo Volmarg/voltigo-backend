@@ -1,0 +1,9 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+
+when@prod:
+    framework:
+        mailer:
+            envelope:
+                recipients: [ '%env(ADMIN_EMAIL)%' ]

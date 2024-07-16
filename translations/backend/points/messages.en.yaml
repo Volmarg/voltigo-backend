@@ -1,0 +1,7 @@
+points:
+  text:
+    grantedViaBasket: "Granted via basket"
+  message:
+    grantInformation:
+      maxReached: "Max. points reached (including pending points)! Cannot grant more!"
+      pointsGranted: "Points have been granted"

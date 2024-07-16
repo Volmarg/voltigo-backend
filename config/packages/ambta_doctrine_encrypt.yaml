@@ -1,0 +1,4 @@
+#see https://github.com/GiveMeAllYourCats/DoctrineEncryptBundle
+ambta_doctrine_encrypt:
+  encryptor_class: Halite
+  secret_directory_path: '%kernel.project_dir%/config/encryption/%kernel.environment%'

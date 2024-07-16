@@ -1,0 +1,5 @@
+parameters:
+  finances_hub.jwt.lifetime.hours: 1
+  finances_hub.jwt.user_name: "%project_name_spaceless%"
+  finances_hub.log.file_path: "%kernel.logs_dir%/%kernel.environment%/finances-hub-bridge.log"
+  finances_hub.log.name: "FinancesHubBridge"

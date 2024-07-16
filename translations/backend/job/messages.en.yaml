@@ -1,0 +1,15 @@
+job:
+  search:
+    messages:
+      searchDispatched: "Search has started. You will receive an E-Mail once it's finished."
+      doneSuccess: "One of Your job search requests is done with success"
+      doneFailure: "One of Your job search requests has failed"
+      offersHandlerNotReachable: "This service is currently not reachable. We apology for the inconvenience"
+      quotaReached: "High users activity detected - we've reached our quota. Try again later."
+      disabled: "We apology, but job searching is disabled, either it's under maintenance or we are preparing for update. Try again later."
+  application:
+    sendApplication:
+      messages:
+        recipientChanged: >
+          For at least on of the job offers the recipient has either been manipulated or recently changed. 
+          Please reload the page and try applying again. </br></br> Offer: <b>%company% / %title%</b>.

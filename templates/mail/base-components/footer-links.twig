@@ -1,0 +1,23 @@
+<div class="mj-inline-links" style="margin-bottom: 10px;text-align:center;">
+    <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center"><tr><td style="padding:15px 10px ;" class="" ><![endif]-->
+
+    {% set linkStyle %}
+        display:inline-block;
+        color:#ffffff;
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans','Helvetica Neue', sans-serif;
+        font-size:13px;
+        font-weight:normal;
+        line-height:22px;
+        text-decoration:none;
+        text-transform:uppercase;
+        padding:15px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 0.1px;
+        margin-left: 8px;
+    {% endset %}
+
+    {# goTo value must be keept in sync with fronend section ids #}
+    <a class="mj-link" href="{{ envReader.frontendBaseUrl }}" target="_blank" style="{{ linkStyle }}"> About us </a>
+    <a class="mj-link" href="{{ envReader.frontendBaseUrl }}#/?goTo=footer" target="_blank" style="{{ linkStyle }}"> Contact </a>
+    <a class="mj-link" href="{{ envReader.frontendBaseUrl }}#/?goTo=faq" target="_blank" style="{{ linkStyle }}"> FAQ </a>
+</div>

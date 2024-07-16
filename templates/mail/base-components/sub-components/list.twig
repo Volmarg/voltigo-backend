@@ -1,0 +1,5 @@
+{% set listIcon = '➤' %}
+
+{% for value in listElements %}
+    <p style="line-height: 13px; {% include 'mail/base-components/inline-style/footer-font-size.twig' %}"> {{ listIcon }} {{ value | raw }} </p>
+{% endfor %}

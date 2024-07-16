@@ -1,0 +1,16 @@
+user:
+  removeUser:
+    thisLinkHasExpiredPleaseRemoveYourProfileAgain: This link has expired. Please remove Your profile again.
+  resetPassword:
+    thisLinkHasExpiredPleaseRequestPasswordResetAgain: This link has expired. Please request password reset again.
+  requestPasswordResetEmail:
+    toManyTimes: You've requested password reset to many times for this E-Mail address. Try again later.
+    userDeleted: Cannot request password reset for this E-Mail address. Possibly banned or deleted account.
+  requestAccountActivationEmail:
+    toManyTimes: You've requested this E-Mail to many times. Try again later.
+    alreadyActivated: Your account is already active.
+  register:
+    toManyRegistrationsFromIp: Access Denied. We've detected high amount of registrations from Your IP address (which is suspicious). Try again later.
+  sendTemplateTestEmail:
+    limitReached: You've reached the test E-mails daily limit. Try again tomorrow.
+    emailWillBeSoonSent: E-Mail has been sent. You will soon receive it.

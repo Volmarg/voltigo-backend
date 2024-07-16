@@ -1,0 +1,54 @@
+{% set maxWidthStyle =  "max-width: 1200px !important; "%}
+{% set modifierDisclaimerCommonStyles = "font-style: italic !important; padding-left: 10px; padding-right: 10px; text-align: justify !important; margin: 0 auto !important;" ~ maxWidthStyle %}
+{% set modifierDisclaimerSeparatorStyles = "text-align: justify !important;margin: 0 auto !important;border: 1px solid rgba(255, 255, 255, 0.25);margin-top: 7px !important;margin-bottom: 7px !important;" ~ maxWidthStyle%}
+{% set modifierMainWrapperStyles = "padding-top: 15px !important;padding-bottom: 15px !important;" %}
+{% set modifierBgBlueStyles= "background-image: linear-gradient(to right top, #4287f5, #377beb, #2b6fe1, #1e64d7, #0d58cd);width:100%;" %}
+{% set modifierTextStyles = "display: inline-block !important;color: #ffffff !important;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;font-weight: normal !important;line-height: 22px !important;text-decoration: none !important;" %}
+{% set unsubscriptionLinkStyles = "color: white;font-weight: 800;" %}
+
+<div data-{{ randomIdentifier }}>
+
+    <hr/>
+
+    <div style="{{ modifierTextStyles }} {{ modifierBgBlueStyles }} {{ modifierMainWrapperStyles }}">
+
+        <div style="{{ modifierDisclaimerCommonStyles }} {% include 'mail/base-components/inline-style/footer-font-size.twig' %}">
+            {% include 'mail/base-components/text/content-is-for-recipient-only.twig' %}
+        </div>
+
+        <hr style="{{ modifierDisclaimerSeparatorStyles }}" />
+
+        <div style="{{ modifierDisclaimerCommonStyles }} margin-top: 10px; {% include 'mail/base-components/inline-style/footer-font-size.twig' %}">
+            <!-- this must be kept in sync with user rules -->
+            All the E-Mail content (besides footer etc.) was fully added by the user of our platform (<b>reply-to</b> address).
+            We ({{ projectName }}) do not take responsibility to whatever content user is sending.
+            If You find this E-Mail anyhow offending do not hesitate to either "directly contact the sender" (<b>reply-to</b>),
+            "block E-Mails from this user" or "use one of our blocking (unsubscription) links below."
+        </div>
+
+        <div style="font-style: italic !important; {{ maxWidthStyle }} {% include 'mail/base-components/inline-style/footer-font-size.twig' %} margin: 0 auto;">
+
+            {% set blockUser %}{% endset %}
+            {% set blockProject %}{% endset %}
+
+            {% if isBlockingUrl %}
+                <div style="font-style: italic !important; padding-left: 10px; padding-right: 10px;">
+                    <br/>
+                    Blocking urls are not available for this E-Mail.
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="modifier-footer-links">
+            {% include 'mail/base-components/footer-links.twig' %}
+        </div>
+        {% include 'mail/base-components/footer-extra-data.twig' %}
+
+        <div class="modifier-footer-logo" id="modifier-footer-logo">
+            <a href="{{ projectUrl }}" target="_blank">
+                {% include 'mail/base-components/logo.twig' with {maxWidth: '150px'} %}
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+security:
+  login:
+    messages:
+      unauthorized: Unauthorized access
+      badRequest: Bad request
+      thisUserHasAlreadyBeenActivated: This user has already been activated
+      noRightToActivate: You got no right to activate the account, it's probably already activated
+      noRightToResetPassword: You got no permission to reset password for this account
+  jwt:
+    thisTokenHasBeenAlreadyUsed: This token has been already used or is invalid
+  password:
+    constraint:
+      minLength: "Min. length: %len%"
+      minUpperCase: "Min. uppercase letters: %count%"
+      minLowerCase: "Min. lowercase letters: %count%"
+      minSymbols: "Min. symbols: %count%"
+      minNumbers: "Min. numbers: %count%"
+    message:
+      toWeak: Password is too weak

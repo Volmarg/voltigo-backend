@@ -1,0 +1,27 @@
+# V-Back daily maintenance window 01:00-05:00
+
+## CLEANUP
+
+# [01:15 am.] Cleanup storages
+CLEAN_STORAGES_LOG_FILE_PATH=/var/log/cron-cleanup-storages-data.log
+15 1 * * * root cd /var/www/html/ &&  date >> $CLEAN_STORAGES_LOG_FILE_PATH && php bin/console voltigo:cleanup:storages --mode=ALL >> $CLEAN_STORAGES_LOG_FILE_PATH 2>&1
+
+## MAILING
+
+# [Each 1 min] Send E-Mails
+SEND_EMAILS_LOG_FILE_PATH=/var/log/cron-send-emails.log
+* * * * * root cd /var/www/html/ &&  date >> $SEND_EMAILS_LOG_FILE_PATH && php bin/console voltigo:email:send-emails >> $SEND_EMAILS_LOG_FILE_PATH 2>&1
+
+# [Each 1 min] Check E-Mails sending status
+CHECK_EMAILS_SENDING_STATUS_LOG_FILE_PATH=/var/log/cron-check-emails-sending-status.log
+* * * * * root cd /var/www/html/ &&  date >> $CHECK_EMAILS_SENDING_STATUS_LOG_FILE_PATH && php bin/console voltigo:email:check-status >> $CHECK_EMAILS_SENDING_STATUS_LOG_FILE_PATH 2>&1
+
+## CORRECTIONS
+
+# [Each 1min] Correct - search results points returning
+CORRECT_SEARCH_RESULTS_POINTS_RETURNING_WORK_LOG_FILE_PATH=/var/log/cron-correction-search-results-points-returning.log
+* * * * * root cd /var/www/html/ &&  date >> $CORRECT_SEARCH_RESULTS_POINTS_RETURNING_WORK_LOG_FILE_PATH && php bin/console voltigo:corrections:points:return:search-result  >> $CORRECT_SEARCH_RESULTS_POINTS_RETURNING_WORK_LOG_FILE_PATH 2>&1
+
+# [Each 1min] Correct - fetch long stuck job search requests (check status on Offer Searcher side)
+CORRECT_STUCK_JOB_SEARCH_LOG_FILE_PATH=/var/log/cron-correction-handle-dtuck-job-search.log
+* * * * * root cd /var/www/html/ &&  date >> $CORRECT_STUCK_JOB_SEARCH_LOG_FILE_PATH && php bin/console voltigo:corrections:handle-stuck-job-search  >> $CORRECT_STUCK_JOB_SEARCH_LOG_FILE_PATH 2>&1

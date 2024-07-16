@@ -1,0 +1,3 @@
+points:
+  message:
+    cannotBuyPointsWillReachAboveMax: "Cannot buy %bought_amount% point/s. You have currently %current_points% point/s, pending (recently bought) %pending_points%, max allowed amount is %points_amount%."

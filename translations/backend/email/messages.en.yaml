@@ -1,0 +1,33 @@
+email:
+  builder:
+    entity:
+      violations:
+        name:
+          notUnique: This name is not unique
+    action:
+      save:
+        ok: E-Mail template has been saved
+        maxReached: Maximum amount of E-Mail templates has been reached. Please remove old ones first.
+        htmlToImageFailed:
+          maybeCouldNotGetResources: Failed generating template miniature, make sure that all images (and other resources) are globally accessible.
+      delete:
+        ok: E-Mail template has been deleted
+      clone:
+        ok: "E-Mail template cloned. Template name: %template_name%"
+  wizard:
+    subject:
+      fragment:
+        prefix: Job Application
+    sendEmails:
+      save:
+        success: E-mails has been saved and will soon be sent
+        thereAreNoOffersToApplyFor: There are no offers to apply for (some offers might've been skipped if You applied earlier for them).
+        error:
+          couldNotSaveAllEmails: Could not save all E-Mails. For safety reason, non was saved. Try again later.
+  order_and_transaction:
+    statuses:
+      inProgress: Transaction was stuck in the state of "checking the payment result"
+      error: Something went wrong on the payment tool side
+      unknown: Some unknown state of the payment was delivered from the payment tool
+      cancelled: This payment has been cancelled by the payment tool
+      returned: This payment has been returned by the payment tool

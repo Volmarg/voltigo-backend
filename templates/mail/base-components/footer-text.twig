@@ -1,0 +1,18 @@
+{% if extraAnnotations is not defined %}
+    {% set extraAnnotations = '' %}
+{% endif %}
+
+<br/>
+<br/>
+
+{% include 'mail/base-components/sub-components/hr.twig' %}
+<br/>
+
+{# https://termly.io/resources/articles/email-disclaimers/#:~:text=If%20you%20are%20not%20the,this%20email%20and%20any%20attachments. #}
+<div>
+    <i style="text-align: justify; display: block; font-size: 10px; color: rgba(0,0,0,0.62); align-self: center;">
+        {% include 'mail/base-components/text/content-is-for-recipient-only.twig' %}
+    </i>
+    {{ extraAnnotations }}
+</div>
+

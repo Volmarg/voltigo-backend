@@ -1,0 +1,5 @@
+parameters:
+  job_searcher.jwt.lifetime.hours: 1
+  job_searcher.jwt.user_name: "%project_name_spaceless%"
+  job_searcher.log.file_path: "%kernel.logs_dir%/%kernel.environment%/job-searcher-bridge.log"
+  job_searcher.log.name: "JobSearcherBridge"

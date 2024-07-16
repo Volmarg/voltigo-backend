@@ -1,0 +1,5 @@
+parameters:
+  blacklist_hub.jwt.lifetime.hours: 1
+  blacklist_hub.jwt.user_name: "%project_name_spaceless%"
+  blacklist_hub.log.file_path: "%kernel.logs_dir%/%kernel.environment%/blacklist-hub-bridge.log"
+  blacklist_hub.log.name: "BlacklistHubBridge"

@@ -1,0 +1,8 @@
+{# This has to be used becuase it has some styles that allow the text to be displayed, else the text is not visible at all, cant force color etc. #}
+{% if textColor is not defined %}
+    {% set textColor = '#000000' %}
+{% endif %}
+
+<div style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans','Helvetica Neue', sans-serif;font-size:14px;font-weight:400;line-height:1.7;text-align:center;color: {{ textColor }};">
+    {{ textContent }}
+</div>

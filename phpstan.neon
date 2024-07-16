@@ -1,0 +1,19 @@
+# There is some weird issue with "TAB" causing exception
+
+parameters:
+	level: 6
+	paths:
+		- src
+
+	ignoreErrors:
+		- '#Property (.*) type has no value type specified in iterable type array#'
+		- '#Method (.*) has parameter (.*) with no value type specified in iterable type array#'
+		- '#ethod (.*) return type has no value type specified in iterable type array#'
+		- '#return type with generic class ReflectionAttribute does not specify its types#'
+		- '#callable of class Twig\\TwigFilter constructor expects#'
+		- '#Access to undefined constant .*Enum#'
+
+	excludePaths:
+		analyseAndScan:
+		- src/Enum
+		- src/DTO/Frontend/JobOffer/Filter/FilterDTO.php # because phpstan has some internal issue with this, and console command asks for creating ticket for that

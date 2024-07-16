@@ -1,0 +1,14 @@
+user.settings.base_data:
+  save:
+    message:
+      ok: "Updated"
+  email:
+    message:
+      incorrectSyntax: "This address is synthetically invalid"
+      emailWillSoonBeSent: "E-Mail will soon be sent"
+      requestedToManyTimes: "You've requested the change to many times, try again later"
+      sameEmailAddress: "That's the same E-Mail address that You use now. Not saving."
+      emailAlreadyTaken: "This E-Mail is already taken."
+  profileImage:
+    message:
+      ok: "File has been uploaded. Profile data has been updated."

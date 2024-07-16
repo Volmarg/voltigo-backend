@@ -1,0 +1,3 @@
+parameters:
+  clam_av.host: localhost
+  clam_av.port: 3310

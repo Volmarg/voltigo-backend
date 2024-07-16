@@ -1,0 +1,16 @@
+{% set criteriaArray = [
+    "<b>Keywords:</b> " ~ keywords | join (', '),
+    "<b>Country:</b> " ~ country,
+] %}
+
+{% if location is not empty %}
+    {% set criteriaArray = criteriaArray | merge(["<b>Location:</b> " ~ location]) %}
+{% endif %}
+
+{% if distance is not empty %}
+    {% set criteriaArray = criteriaArray | merge(["<b>Distance:</b> " ~ distance]) %}
+{% endif %}
+
+{% include 'mail/base-components/sub-components/list.twig' with {
+    listElements: criteriaArray
+} %}

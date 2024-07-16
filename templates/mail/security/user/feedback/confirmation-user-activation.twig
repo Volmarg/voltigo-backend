@@ -1,0 +1,45 @@
+{#
+    This template is sent to user when he activates the accoung - confirms that the account has been activated.
+#}
+
+{% extends '/mail/base.twig' %}
+
+{% block contentLineOne %}
+
+    {% set topText %}
+
+        {% include '/mail/base-components/sub-components/header.twig' with {
+            text: "Account activated"
+        } %}
+
+        {% set base64Image %}
+            {% include 'mail/base64-images/activate-account.twig' %}
+        {% endset %}
+
+        {% include '/mail/base-components/sub-components/responsive-image.twig' with {
+            imageSource: base64Image
+        } %}
+
+        <p style="
+                {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+            "
+        >
+            Hello <b style="
+                    {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+                ">
+                {{ user.getUsername() }}
+            </b>,
+        </p>
+        <p style="
+            {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+                "
+        >
+            Your account has been activated!
+        </p>
+
+        {% include '/mail/base-components/footer-text.twig' %}
+    {% endset %}
+
+    {% include '/mail/base-components/sub-components/text.twig' with { textContent: topText } %}
+
+{% endblock %}

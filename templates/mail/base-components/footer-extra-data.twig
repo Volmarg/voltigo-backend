@@ -1,0 +1,10 @@
+{% set copyrightText %}
+    <p style="color: white;">
+        &copy;Voltigo | All Rights Reserved
+    </p>
+{% endset %}
+
+{% include 'mail/base-components/sub-components/text.twig' with {
+    textContent : copyrightText,
+    textColor   : 'white',
+} %}

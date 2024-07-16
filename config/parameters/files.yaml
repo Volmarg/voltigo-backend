@@ -1,0 +1,6 @@
+parameters:
+  tmp.dir: "/tmp/files" # where files are temporarily stored
+  public.access.data.dir: "/data"
+
+  # must be in sync with "<project-root>/toggle-system-disabled.sh"
+  system_disabled.file.path: "%kernel.project_dir%/.is-disabled"

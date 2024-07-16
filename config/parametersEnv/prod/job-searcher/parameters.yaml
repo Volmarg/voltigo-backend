@@ -1,0 +1,3 @@
+parameters:
+  # This ip means that container is using HOST based localhost to access the project under give port
+  job_search_service.base_url: "http://host.docker.internal:8007/api/"

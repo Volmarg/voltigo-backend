@@ -1,0 +1,17 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            url: '%env(RABBITMQ_URL)%'
+    consumers:
+        jobOffersHandler:
+            connection: default
+            exchange_options: { name: 'job-offers-handler-search-done', type: direct }
+            queue_options:
+                name: 'job-offers-handler-search-done'
+                routing_keys:
+                    - 'job-offers-handler-search-done'
+                arguments:
+                    'x-queue-type': [ 'S', 'quorum' ] # queue type
+                    'x-delivery-limit': [ 'I', 5 ] # max re-deliver retry until discarded, works only for `quorum`
+            callback: App\RabbitMq\Consumer\JobSearch\JobSearchDoneConsumer
+            enable_logger: true

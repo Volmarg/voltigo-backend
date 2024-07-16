@@ -1,0 +1,4 @@
+parameters:
+  upload.directory: "/var/www/upload"     # where the uploaded files are getting stored
+  upload.tmp.dir: "/tmp/upload"           # where uploaded files are temporary stored before scanning etc.
+  upload.linked.dir.in.public: "/%public.access.data.dir%/upload/" # directory of the uploaded file link (for public access etc.) Relative toward public

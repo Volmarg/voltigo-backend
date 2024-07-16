@@ -1,0 +1,35 @@
+mails:
+  security:
+    user:
+      sendNewPassword:
+        subject: Your new password
+      requestPasswordResetLink:
+        response:
+          noUserFound: No user was found for this E-mail
+          invalidEmail: Invalid E-mail
+        subject:
+          passwordResetLink: Password reset link
+      userRemovalConfirmation:
+        subject: Your profile has been removed
+      userActivationConfirmation:
+        subject: Your profile has been activated
+      userActivationLink:
+        subject: Your link for profile activation
+        response:
+          expiredToken: This link has expired. You will receive new one if Your profile stil exists.
+      userConfirmationProfileRegistered:
+        subject: Your profile has been registered. Please confirm Your registration.
+      register:
+        violations:
+          emailIsAlreadyInUse: E-mail is already in use
+          invalidEmail: Invalid E-mail
+          passwordsAreNotEqual: Passwords are not equal
+        message:
+          emailCannotBeUsed: This E-Mail cannot be used, try with other one
+      emailChangeConfirmation:
+        subject: Your email change request
+  transaction:
+    success:
+      subject: Transaction finished
+    fail:
+      subject: Transaction failed

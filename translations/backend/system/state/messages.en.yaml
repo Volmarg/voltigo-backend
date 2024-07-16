@@ -1,0 +1,6 @@
+state:
+  disabled:
+    message: "Daily maintenance - system is temporarily disabled. Come back in: {{timeLeft}}"
+    downForMaintenance: "Temporary maintenance. Try again later."
+  soonDisabled:
+    message: "Daily maintenance will start in: {{timeLeft}}. Please save the that things You currently do (started job searching etc. will NOT be interrupted)."

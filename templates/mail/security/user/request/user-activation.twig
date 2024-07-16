@@ -1,0 +1,51 @@
+{#
+    This template is sent to user when he requests account activation, and also probably when user clicks on expired
+    activation link (be it from this E-Mail or registration one),
+#}
+{% extends '/mail/base.twig' %}
+
+{% block contentLineOne %}
+
+    {% set textWithLink %}
+
+        {% include '/mail/base-components/sub-components/header.twig' with {
+            text: "Activate account"
+        } %}
+
+        {% set base64Image %}
+            {% include 'mail/base64-images/activate-account.twig' %}
+        {% endset %}
+
+        {% include '/mail/base-components/sub-components/responsive-image.twig' with {
+            imageSource: base64Image
+        } %}
+
+        <p style="
+                {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+            ">
+            Hello
+            <b style="
+                    {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+                ">
+            {{ user.getUsername() }}
+            </b>,
+        </p>
+
+        <p style="
+                {% include 'mail/base-components/inline-style/text-font-size.twig' %}
+            ">
+            You've requested Account activation.
+            Click the button below to confirm Your account.
+        </p>
+
+        {% include '/mail/base-components/sub-components/blue-button.twig' with {
+            link : link,
+            text : "Activate account"
+        } %}
+
+        {% include '/mail/base-components/footer-text.twig' %}
+    {% endset %}
+
+    {% include '/mail/base-components/sub-components/text.twig' with { textContent: textWithLink } %}
+
+{% endblock %}

@@ -1,0 +1,3 @@
+parameters:
+  finances_hub.base_url: "http://host.docker.internal:8012/"
+

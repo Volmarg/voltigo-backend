@@ -1,0 +1,92 @@
+FROM ubuntu:jammy
+
+# Required else the ubuntu installation qill ask for timezone in interactive mode
+ARG DEBIAN_FRONTEND=noninteractive;
+
+# Required packages to be able to install php8.1
+## Also the apt-get update must be chained like this, it's known docker issue
+RUN apt-get update --fix-missing && yes | apt-get install software-properties-common;
+
+# Install some packages for easier work in docker and packages that just MUST be there
+RUN     yes | apt-get install nano \
+    &&  yes | apt-get install curl \
+    &&  yes | apt-get install wget \
+    &&  yes | apt-get install symlinks \
+    &&  yes | apt-get install less;
+
+# Install php 8.1
+RUN     add-apt-repository ppa:ondrej/php \
+    &&  yes | apt-get install lsb-release ca-certificates apt-transport-https software-properties-common \
+    &&  yes | apt-get install \
+    &&  yes | apt-get install php8.1 \
+    &&  yes | apt-get install php8.1-bcmath \
+    &&  yes | apt-get install php8.1-bz2 \
+    &&  yes | apt-get install php8.1-cgi \
+    &&  yes | apt-get install php8.1-cli \
+    &&  yes | apt-get install php8.1-common \
+    &&  yes | apt-get install php8.1-curl \
+    &&  yes | apt-get install php8.1-fpm \
+    &&  yes | apt-get install php8.1-gd \
+    &&  yes | apt-get install php8.1-intl \
+    &&  yes | apt-get install php8.1-ldap \
+    &&  yes | apt-get install php8.1-mbstring \
+    &&  yes | apt-get install php8.1-mysql \
+    &&  yes | apt-get install php8.1-opcache \
+    &&  yes | apt-get install php8.1-pgsql \
+    &&  yes | apt-get install php8.1-readline \
+    &&  yes | apt-get install php8.1-soap \
+    &&  yes | apt-get install php8.1-xdebug \
+    &&  yes | apt-get install php8.1-xml \
+    &&  yes | apt-get install php8.1-zip \
+    &&  yes | apt-get install php8.1-xdebug;
+
+# Project related packages
+RUN yes | apt-get install clamav-daemon \
+    # seed the antivirus database
+    &&  freshclam;
+
+# For converting jpg to pdf
+RUN yes | apt-get install imagemagick;
+
+# For converting html to image
+RUN     yes | apt-get install xvfb \
+    &&  yes | apt-get install cutycapt;
+
+# Need to use this version as it's patched and contains some extra options
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+    && yes | apt install ./wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+    && ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf;
+
+# Need to expose internal container port to allow mapping it to some port that will be accesible outside of container
+EXPOSE 80 8080
+
+# Will set the localhost as the one on which apache should run
+# However cannot restart the apache here as it will then bind itself to some other port "HELL KNOWS WHY".
+RUN printf "\n# Required to make apache run on 127.0.0.1 \nServerName localhost \n" >> /etc/apache2/apache2.conf;
+
+# Symfony routes wont work without it
+RUN a2enmod rewrite;
+
+RUN mkdir -p /tmp/upload;
+RUN chmod 755 /tmp/upload;
+RUN chown www-data. /tmp/upload;
+
+RUN mkdir -p /tmp/files;
+RUN chmod 755 /tmp/files;
+RUN chown www-data. /tmp/files;
+
+# Prepare upload dir
+RUN mkdir -p /var/www/upload;
+RUN chown www-data. /var/www/upload -R;
+
+# Make supervisor work
+RUN yes | apt-get install supervisor;
+
+# Crontab
+RUN yes | apt-get install cron;
+
+# Git && composer
+RUN apt-get install git -y;
+RUN wget https://getcomposer.org/download/2.7.7/composer.phar \
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod 777 /usr/local/bin/composer;

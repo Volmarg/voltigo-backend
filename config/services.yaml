@@ -1,0 +1,246 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    # in seconds
+    # whenever this has to be changed, don't forget about adjusting frontend logic
+    # as the fronted is silently updating the jwt token when user clicks on page to keep the user logged in.
+    # The frontend code checks with each click on page if the jwt token has expired and if so - user is logged out
+    # With this, the token is refreshed every "X" seconds so that user won't be logged out while just handling front
+    # based page which don't have any ajax calls etc.
+    jwt_token_lifetime: 3600
+
+    job.application.application_period.same_offer: 30 # days
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: true
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+            - '../src/Service/Libs/Ratchet/RatchetConnectionDecorator.php'
+            - '../src/DTO/'
+            - '../src/Exception/'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Controller\Core\Services:
+        calls:
+            - setUserSecurityService: ['@App\Service\Security\UserSecurityService']
+            - setFormService : ['@App\Service\Form\FormService']
+            - setLoggerService: ['@App\Service\Logger\LoggerService']
+            - setCsrfTokenService: ['@App\Service\Security\CsrfTokenService']
+            - setUrlMatcherService: ['@App\Service\Routing\UrlMatcherService']
+            - setJwtAuthenticationService: ['@App\Service\Security\JwtAuthenticationService']
+            - setAttributeReaderService: ['@App\Service\Attribute\AttributeReaderService']
+            - setValidationService: ['@App\Service\Validation\ValidationService']
+            - setTranslator: ['@translator']
+            - setFrontendDecryptor: ['@App\Service\Security\FrontendDecryptor']
+            - setShellService: ['@App\Service\Shell\ShellService']
+            - setPasswordGeneratorService: ['@App\Service\Security\PasswordGeneratorService']
+            - setUserTemplateService: ['@App\Service\Templates\Email\UserTemplatesService']
+
+    App\Service\Shell\ShellService:
+        calls:
+            - setShellMysqlDumpService: ['@App\Service\Shell\ShellMysqlDumpService']
+            - setShellTarArchivizerService: ['@App\Service\Shell\ShellTarArchivizerService']
+
+    App\Service\ConfigLoader\SecurityConfigLoader:
+        calls:
+            - setJwtTokenLifetime: ['%jwt_token_lifetime%']
+            - setFrontendEncryptionPrivateKey: ['%kernel.project_dir%/config/encryption/%kernel.environment%/frontend.priv.pem']
+
+    App\Controller\Core\ConfigLoader:
+        calls:
+            - setSecurityConfigLoader: ['@App\Service\ConfigLoader\SecurityConfigLoader']
+            - setStorageConfigLoader: ['@App\Service\ConfigLoader\StorageConfigLoader']
+            - setConfigLoaderProject: ['@App\Service\ConfigLoader\ConfigLoaderProject']
+            - setConfigLoaderPaths: ['@App\Service\ConfigLoader\ConfigLoaderPaths']
+            - setConfigLoaderWebSocket: ['@App\Service\ConfigLoader\ConfigLoaderWebSocket']
+            - setConfigLoaderJobOffer: ['@App\Service\ConfigLoader\ConfigLoaderJobOffer']
+
+    App\Service\ConfigLoader\ConfigLoaderPaths:
+        calls:
+            - setDatabaseBackupFolderPath: ['%paths.database.backup%']
+            - setProjectConfigurationBackupFolderPath: ['%paths.project_configuration.backup%']
+
+    App\Service\Logger\LoggerService:
+        calls:
+            - setLoggerService: [!php/const App\Service\Logger\LoggerService::LOGGER_HANDLER_DEFAULT]
+
+    App\Service\ConfigLoader\ConfigLoaderProject:
+        calls:
+            - setProjectName: ['%project_name%']
+            - setFromMail: ['%project_from_email%']
+
+    App\Service\ConfigLoader\StorageConfigLoader:
+        calls:
+            - setCrfTokenStorageLifetimeHours: ['%storage_crf_token_lifetime_hours%']
+            - setFrontendErrorStorageLifetimeHours: ['%storage_frontend_error_lifetime_hours%']
+            - setPageTrackingStorageLifetimeHours: ['%storage_page_tracking_lifetime_hours%']
+            - setAmqpTimeJwtTokenStorageLifetimeHours: ['%storage_amqp_lifetime_hours%']
+
+    App\Service\ConfigLoader\ConfigLoaderWebSocket:
+        calls:
+            - setNonUserBasedConnectionLifetimeMinutes: ['%websocket.connection_lifetime.non_user_based%']
+            - setUserBasedConnectionLifetimeMinutes: ['%websocket.connection_lifetime.inactive_user%']
+
+    App\Service\ConfigLoader\ConfigLoaderJobOffer:
+        arguments:
+            $applicationDaysPeriodSameOffer: '%job.application.application_period.same_offer%'
+
+    # Cleanup logic
+    ## Command
+    App\Command\Cleanup\CleanupStoragesCommand:
+        calls:
+            - setStorageCleanupServices: [
+                   [
+                       '@App\Service\Cleanup\AmqpStorageCleanupService',
+                       '@App\Service\Cleanup\ApiStorageCleanupService',
+                       '@App\Service\Cleanup\BannedJwtTokenStorageCleanupService',
+                       '@App\Service\Cleanup\CsrfTokenStorageCleanupService',
+                       '@App\Service\Cleanup\FrontendErrorStorageCleanupService',
+                       '@App\Service\Cleanup\OneTimeJwtTokenStorageCleanupService',
+                       '@App\Service\Cleanup\PageTrackingStorageCleanupService',
+                       '@App\Service\Cleanup\OffersSearchCleanupService',
+                       '@App\Service\Cleanup\UploadCleanupService',
+                       '@App\Service\Cleanup\UserCleanupService',
+                   ]
+                ]
+
+    ## Tag services - whenever this is changed / updated, keep the `CleanupStoragesCommand::AVAILABLE_SERVICES` updated
+    cleanup.service.aqmp:
+        class: App\Service\Cleanup\AmqpStorageCleanupService
+
+    cleanup.service.api:
+        class: App\Service\Cleanup\ApiStorageCleanupService
+
+    cleanup.upload:
+        class: App\Service\Cleanup\UploadCleanupService
+
+    cleanup.service.banned_jwt:
+        class: App\Service\Cleanup\BannedJwtTokenStorageCleanupService
+
+    cleanup.service.csrf_token:
+        class: App\Service\Cleanup\CsrfTokenStorageCleanupService
+
+    cleanup.service.frontend_error:
+        class: App\Service\Cleanup\FrontendErrorStorageCleanupService
+
+    cleanup.service.one_time_jwt:
+        class: App\Service\Cleanup\OneTimeJwtTokenStorageCleanupService
+
+    cleanup.service.page_tracking:
+        class: App\Service\Cleanup\PageTrackingStorageCleanupService
+
+    App\Service\Cleanup\OffersSearchCleanupService:
+        arguments:
+            $offersMaxLifetimeHours: '%offer_search_max_lifetime%'
+
+    cleanup.service.offers_search:
+        class: App\Service\Cleanup\OffersSearchCleanupService
+        arguments:
+            $offersMaxLifetimeHours: '%offer_search_max_lifetime%'
+
+    App\Service\Cleanup\JobInformationCleanupService:
+        arguments:
+            $offerInformationMaxLifetimeHours: '%offer_information_max_lifetime%'
+
+    cleanup.service.offer_information:
+        class: App\Service\Cleanup\JobInformationCleanupService
+        arguments:
+            $offerInformationMaxLifetimeHours: '%offer_information_max_lifetime%'
+
+    App\Service\Cleanup\EmailAttachmentCleanupService:
+        arguments:
+            $attachmentMaxLifetime: '%email_attachment_max_lifetime%'
+
+    App\Service\Cleanup\UserCleanupService:
+        arguments:
+            $maxLifetimeHoursSinceDeleted: '%user_deleted_max_lifetime%'
+
+    cleanup.service.user:
+        class: App\Service\Cleanup\UserCleanupService
+        arguments:
+            $maxLifetimeHoursSinceDeleted: '%user_deleted_max_lifetime%'
+
+    cleanup.service.email_attachment:
+        class: App\Service\Cleanup\EmailAttachmentCleanupService
+        arguments:
+            $attachmentMaxLifetime: '%email_attachment_max_lifetime%'
+
+    Faker\Generator:
+
+    # RabbitMq specific
+    PhpAmqpLib\Connection\AbstractConnection: '@App\RabbitMq\Connection\Connection'
+
+    PhpAmqpLib\Wire\IO\SocketIO:
+        arguments:
+            $host: '%env(RABBITMQ_HOST)%'
+            $port: '%env(int:RABBITMQ_PORT)%'
+
+    App\RabbitMq\Connection\Connection:
+        arguments:
+            $user: '%env(RABBITMQ_LOGIN)%'
+            $password: '%env(RABBITMQ_PASSWORD)%'
+            $io: '@PhpAmqpLib\Wire\IO\SocketIO'
+
+    App\Service\Messages\Email\EmailingServiceInterface: '@App\Service\Api\MessageHub\MessageHubService'
+
+    App\Service\Email\EmailModifierService:
+        arguments:
+            $modifiers:
+                - '@App\Service\Email\Modifiers\ProjectFooterModifier'
+
+    App\Service\Finances\Invoice\InvoiceService:
+        arguments:
+            $saveBaseAbsoluteDirectory: "%paths.invoice_files.absolute%"
+            $saveBaseDirectoryRelativeTowardPublic: "%paths.invoice_files.relative_toward_public%"
+
+    App\Service\System\State\SystemStateService:
+        arguments:
+            $systemDisabledStartTime: '%system_disabled_start_time%'
+            $systemDisabledEndTime: '%system_disabled_end_time%'
+            $systemDisabledInfoBeforeMin: '%system_disabled_soon_notify_earlier_min%'
+            $systemDisabledFilePath: '%system_disabled.file.path%'
+
+    public_logger:
+        alias: logger
+        public: true
+
+    Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
+        arguments:
+            $defaultContext:
+                datetime_format: 'Y-m-d H:i:s'
+
+    Monolog\Formatter\HtmlFormatter:
+        public: true
+
+    App\Service\Logger\Handler\EmailHandler:
+        arguments:
+            $messageTemplate: '@email.handler.template'
+            $level: 'error'
+            $bubble: true
+
+    'email.handler.template':
+        class: Symfony\Component\Mime\Email
+        calls:
+            - subject: ['[ERROR] %project_name% - %kernel.environment% - %%message%%']
+            - from: ['%project_from_email%']
+            - to: ['%env(APP_EXCEPTION_EMAIL)%']
+
+    Symfony\Component\Mime\Email:
+        public: true

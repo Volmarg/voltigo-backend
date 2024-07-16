@@ -1,0 +1,10 @@
+payment:
+  message:
+    couldNotHandleThePayment: "Could not begin the payment"
+    couldNotDeterminePaymentState: "Could not determine the payment state. If the payment data has reached the payment system then it will be processed, otherwise You should retry the payment in few minutes"
+    paymentDone: "Payment done. We now need to wait for confirmation - this might take some time"
+    cancelled: "Payment has been cancelled"
+    paymentError: "Payment error on the payment provider side."
+    cannotPayMaxPaymentAmountReached: "Cannot pay. Maximum allowed single payment is: %allowed_with_currency%, Your payment is: %user_payment_original% (%user_payment_calculated%)"
+    pointsHaveBeenUpdated: "Points have been updated"
+    notEnoughPoints: "Not enough points"

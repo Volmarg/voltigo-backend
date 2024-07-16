@@ -1,0 +1,12 @@
+{% if maxWidth is not defined %}
+    {% set maxWidth = '400px'%}
+{% endif %}
+
+<p style="text-align: center !important;">
+    <img src="{{ imageSource }}"
+         class="responsive-image"
+         style="
+            max-width: {{ maxWidth }}
+         "
+    />
+</p>
