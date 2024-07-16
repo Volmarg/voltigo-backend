@@ -105,13 +105,7 @@
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon --level=5",
         "toggle-system-disabled": "./scripts/toggle-system-disabled.sh 1",
-        "phpmetrics": "php8.1 ./vendor/bin/phpmetrics --report-html=myreport src",
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+        "phpmetrics": "php8.1 ./vendor/bin/phpmetrics --report-html=myreport src"
     },
     "conflict": {
         "symfony/symfony": "*"

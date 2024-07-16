@@ -31,6 +31,9 @@ cp "./.env.default" "./.env";
 printf "INSTALLING COMPOSER PACKAGES \n";
 composer install --ignore-platform-reqs;
 
+printf "COMPOSER DUMP AUTOLOAD \n";
+composer dump-autoload --ignore-platform-reqs;
+
 printf "UPDATING DATABASE \n";
 php -d xdebug.mode=off bin/console doctrine:migrations:migrate --no-interaction;
 
