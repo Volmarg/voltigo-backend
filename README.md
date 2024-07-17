@@ -11,23 +11,51 @@
 </div>
 
 <div align="center">
-This project is a part of: <b><a href="">Voltigo</a></b>
+This project is a part of: <b><a href="https://github.com/Volmarg/voltigo-frontend">Voltigo</a></b>
 </div>
 
 ## Description
 
-This project is a backend of the <b><a href="">Voltigo</a></b>, it takes all the users requests, communicate with other projects,
+This project is a backend of the <b><a href="https://github.com/Volmarg/voltigo-frontend">Voltigo</a></b>, it takes all the users requests, communicate with other projects,
 returns the data back to the user etc.
 
 # Running the project
 
+- make sure that **mailer** is running, You can use already prepared mailer project from <a href="https://github.com/Volmarg/voltigo-mailpit">here</a>
+- make sure that **rabbitmq** is running, You can use already prepared rabbitmq project from <a href="https://github.com/Volmarg/voltigo-rabbit-mq">here</a>
+- make sure that **database container** is running, You need to either provide Your own one or create `docker-compose` with this content
+
+```yaml
+# This should work for all backend projects
+services:
+
+  db:
+    container_name: voltigo-projects-databases  
+    image: mysql:latest
+    restart: always
+    tty: true    
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    extra_hosts:
+      - "host.docker.internal:host-gateway"      
+    volumes:
+      - db:/var/lib/mysql   
+    ports:
+      - 3661:3306
+
+volumes:
+  db:
+```
+
 - go inside the `docker` directory,
-- call `docker-compose docker-compose-prod.yaml -f up -d`
+- call `docker-compose -f docker-compose-prod.yaml up -d`
 - the project is now reachable:
    - locally under: `127.0.0.1:8001`
    - within other voltigo-related containers under: `host.docker.internal:8001` 
 
 ## Other notes
+
+- this project has no gui
 
 ### Debugging websocket connection
 
