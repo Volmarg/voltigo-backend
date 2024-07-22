@@ -2,6 +2,7 @@
 
 namespace App\Action\User\Setting;
 
+use App\Controller\Core\Env;
 use App\Response\Base\BaseResponse;
 use App\Service\Security\JwtAuthenticationService;
 use App\Service\Security\PasswordGeneratorService;
@@ -43,6 +44,10 @@ class SecurityAction extends AbstractController
         $json = $request->getContent();
         if (!$this->validationService->validateJson($json)) {
             return BaseResponse::buildInvalidJsonResponse()->toJsonResponse();
+        }
+
+        if (Env::isDemo()) {
+            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         $dataArray   = json_decode($json, true);

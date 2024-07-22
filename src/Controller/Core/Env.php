@@ -211,4 +211,18 @@ class Env extends AbstractController {
 
         return ("true" === $_ENV[self::VAR_IS_JOB_SEARCH_DISABLED]);
     }
+
+    /**
+     * Check if app is in demo mode
+     *
+     * @return bool
+     */
+    public static function isDemo(): bool
+    {
+        if (!isset($_ENV['IS_DEMO'])) {
+            return false;
+        }
+
+        return ($_ENV['IS_DEMO'] == 'true' || $_ENV['IS_DEMO'] == 1 || $_ENV['IS_DEMO'] === true);
+    }
 }

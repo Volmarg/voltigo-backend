@@ -3,6 +3,7 @@
 namespace App\Action\User\Setting;
 
 use App\Attribute\JwtAuthenticationDisabledAttribute;
+use App\Controller\Core\Env;
 use App\Controller\Storage\OneTimeJwtTokenStorageController;
 use App\DTO\Internal\User\Setting\PersonalDataDTO;
 use App\Entity\Address\Address;
@@ -122,6 +123,10 @@ class BaseDataAction extends AbstractController
         if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             $message = $this->translator->trans('user.settings.base_data.email.message.incorrectSyntax');
             return BaseResponse::buildBadRequestErrorResponse($message)->toJsonResponse();
+        }
+
+        if (Env::isDemo()) {
+            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         $user = $this->jwtAuthenticationService->getUserFromRequest();

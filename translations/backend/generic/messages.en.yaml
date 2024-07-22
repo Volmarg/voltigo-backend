@@ -2,3 +2,5 @@ generic:
   internalServerError: "Internal server error"
   someFieldsAreInvalid: "Some fields are invalid"
   notAllowedToPerformThisAction: "You are not allowed to perform this action!"
+  demo:
+    disabled: "This functionality is disabled on Demo"

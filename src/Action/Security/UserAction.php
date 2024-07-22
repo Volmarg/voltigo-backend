@@ -4,6 +4,7 @@ namespace App\Action\Security;
 
 use App\Attribute\AllowInactiveUser;
 use App\Attribute\JwtAuthenticationDisabledAttribute;
+use App\Controller\Core\Env;
 use App\Controller\Core\Services;
 use App\Controller\Security\AccountController;
 use App\Controller\Security\UserController;
@@ -146,6 +147,10 @@ class UserAction extends AbstractController
                 return BaseResponse::buildBadRequestErrorResponse()->toJsonResponse();
             }
 
+            if (Env::isDemo()) {
+                return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+            }
+
             $isRemoved = $this->userController->softDeleteUser($user);
             if(!$isRemoved){
                 $this->services->getLoggerService()->critical("Could not remove the user!", [
@@ -177,6 +182,10 @@ class UserAction extends AbstractController
         if (!$this->jwtAuthenticationService->isAnyGrantedToUser([User::RIGHT_USER_RESET_PASSWORD], $token)) {
             $msg = $this->translator->trans('security.login.messages.noRightToResetPassword');
             return BaseResponse::buildAccessDeniedResponse($msg)->toJsonResponse();
+        }
+
+        if (Env::isDemo()) {
+            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         try{
@@ -236,6 +245,9 @@ class UserAction extends AbstractController
     #[JwtAuthenticationDisabledAttribute]
     public function requestPasswordResetLink(Request $request): JsonResponse
     {
+        if (Env::isDemo()) {
+            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+        }
 
         try{
             $requestJson = $request->getContent();
