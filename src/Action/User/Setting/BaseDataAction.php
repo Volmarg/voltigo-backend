@@ -126,7 +126,7 @@ class BaseDataAction extends AbstractController
         }
 
         if (Env::isDemo()) {
-            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+            return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         $user = $this->jwtAuthenticationService->getUserFromRequest();

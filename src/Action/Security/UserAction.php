@@ -148,7 +148,7 @@ class UserAction extends AbstractController
             }
 
             if (Env::isDemo()) {
-                return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+                return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
             }
 
             $isRemoved = $this->userController->softDeleteUser($user);
@@ -185,7 +185,7 @@ class UserAction extends AbstractController
         }
 
         if (Env::isDemo()) {
-            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+            return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         try{
@@ -246,7 +246,7 @@ class UserAction extends AbstractController
     public function requestPasswordResetLink(Request $request): JsonResponse
     {
         if (Env::isDemo()) {
-            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+            return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         try{

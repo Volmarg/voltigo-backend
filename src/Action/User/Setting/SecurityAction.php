@@ -47,7 +47,7 @@ class SecurityAction extends AbstractController
         }
 
         if (Env::isDemo()) {
-            return BaseResponse::buildAccessDeniedResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+            return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
         }
 
         $dataArray   = json_decode($json, true);
