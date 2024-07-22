@@ -13,6 +13,7 @@
         "composer/package-versions-deprecated": "1.11.99.2",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",
+        "doctrine/doctrine-fixtures-bundle": "v3.4.1",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
         "fakerphp/faker": "^1.16",
@@ -64,7 +65,6 @@
         "volmarg/message-hub-bridge": "@dev"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpmetrics/phpmetrics": "^2.8",
         "phpstan/phpstan": "^0.12.99",
         "symfony/browser-kit": "^5.3",
