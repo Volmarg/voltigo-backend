@@ -2,6 +2,7 @@
 
 namespace App\Service\Security\Scanner;
 
+use App\Controller\Core\Env;
 use App\Exception\Security\MaliciousFileException;
 use Appwrite\ClamAV\Network;
 use Exception;
@@ -42,6 +43,11 @@ class FileScannerService
      */
     public function scan(string $filePath): bool
     {
+        # Takes 1gb ram, not having enough on demo-projects server
+        if (Env::isDemo()) {
+            return true;
+        }
+
         $host = $this->parameterBag->get('clam_av.host');
         $port = $this->parameterBag->get('clam_av.port');
 
