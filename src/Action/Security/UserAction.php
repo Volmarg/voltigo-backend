@@ -410,6 +410,10 @@ class UserAction extends AbstractController
     #[JwtAuthenticationDisabledAttribute]
     public function registerUser(Request $request): JsonResponse
     {
+        if (Env::isDemo()) {
+            return BaseResponse::buildBadRequestErrorResponse($this->translator->trans('generic.demo.disabled'))->toJsonResponse();
+        }
+
         $this->entityManager->beginTransaction();
         {
             try{
