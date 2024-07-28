@@ -38,6 +38,14 @@ php -d xdebug.mode=off bin/console cache:clear && php -d xdebug.mode=off bin/con
 printf "SETTING DIRS RIGHTS \n";
 chmod 777 ./var -R && chown www-data:www-data ./var -R;
 
+# make the rotated log files automatically become www-data owned
+chmod g+s var/log/prod/ 2>/dev/null;
+chmod g+s var/log/dev/ 2>/dev/null;
+
+# make the rotated log files automatically become 775
+umask 002 var/log/prod/ -R 2>/dev/null
+umask 002 var/log/dev/ -R 2>/dev/null
+
 printf "STARTING SUPERVISOR \n";
 supervisorctl start all;
 
