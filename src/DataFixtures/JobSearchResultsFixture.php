@@ -8,12 +8,13 @@ use App\Entity\Security\User;
 use App\Enum\Job\SearchResult\SearchResultStatusEnum;
 use App\Enum\Points\UserPointHistoryTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
 
-class JobSearchResultsFixture extends Fixture
+class JobSearchResultsFixture extends Fixture implements DependentFixtureInterface
 {
     private readonly Generator $faker;
 
@@ -70,5 +71,15 @@ class JobSearchResultsFixture extends Fixture
         }
 
         $manager->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixture::class
+        ];
     }
 }

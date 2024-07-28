@@ -6,12 +6,13 @@ use App\Entity\Email\EmailTemplate;
 use App\Entity\Security\User;
 use App\Repository\Email\EmailTemplateRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
 
-class EmailTemplateFixture extends Fixture
+class EmailTemplateFixture extends Fixture implements DependentFixtureInterface
 {
     private readonly Generator $faker;
 
@@ -45,5 +46,15 @@ class EmailTemplateFixture extends Fixture
         }
 
         $manager->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixture::class
+        ];
     }
 }

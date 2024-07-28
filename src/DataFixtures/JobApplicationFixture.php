@@ -7,12 +7,13 @@ use App\Entity\Job\JobApplication;
 use App\Entity\Job\JobOfferInformation;
 use App\Entity\Security\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
 
-class JobApplicationFixture extends Fixture
+class JobApplicationFixture extends Fixture implements DependentFixtureInterface
 {
     private const SUPPORTED_DOMAINS = [
         'xing.com',
@@ -81,5 +82,16 @@ class JobApplicationFixture extends Fixture
             $manager->persist($application);
             $manager->flush();
         }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixture::class
+        ];
     }
 }
