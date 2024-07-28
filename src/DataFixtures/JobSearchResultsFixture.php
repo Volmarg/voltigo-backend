@@ -35,7 +35,7 @@ class JobSearchResultsFixture extends Fixture implements DependentFixtureInterfa
             throw new Exception("No user exists for id: 1");
         }
 
-        $searcherExtractionCount = 3;
+        $searcherExtractionCount = 67;
 
         // starting from 1 since it's used as an existing db id in job searcher
         for ($x = 1; $x <= $searcherExtractionCount; $x++) {
@@ -58,8 +58,7 @@ class JobSearchResultsFixture extends Fixture implements DependentFixtureInterfa
             match ($x){
                 1 => $jobSearch->setStatus(SearchResultStatusEnum::ERROR->name),
                 2 => $jobSearch->setStatus(SearchResultStatusEnum::PENDING->name),
-                3 => $jobSearch->setStatus(SearchResultStatusEnum::DONE->name),
-                default => throw new Exception("Not supported search results"),
+                default => $jobSearch->setStatus(SearchResultStatusEnum::DONE->name),
             };
 
             if ($jobSearch->isDone()) {
