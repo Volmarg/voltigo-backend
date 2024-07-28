@@ -2,6 +2,7 @@
 
 namespace App\Service\System\Restriction;
 
+use App\Controller\Core\Env;
 use App\Enum\Email\TemplateIdentifierEnum;
 use App\Repository\Email\EmailRepository;
 use App\Service\Security\JwtAuthenticationService;
@@ -27,6 +28,10 @@ class EmailTemplateTestSendingRestrictionService
      */
     public function countSentToday(): int
     {
+        if (Env::isDemo()) {
+            return 0;
+        }
+
         $user = $this->jwtAuthenticationService->getUserFromRequest();
 
         // this one is calculated dynamically because check has to be always made toward 00:00:00 of current day
@@ -49,6 +54,10 @@ class EmailTemplateTestSendingRestrictionService
      */
     public function isAllowed(): bool
     {
+        if (Env::isDemo()) {
+            return true;
+        }
+
         $todayCount = $this->countSentToday();
         if ($todayCount >= self::MAX_PER_DAY) {
             return false;
