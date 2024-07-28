@@ -35,7 +35,7 @@ class JobSearchResultsFixture extends Fixture implements DependentFixtureInterfa
             throw new Exception("No user exists for id: 1");
         }
 
-        $searcherExtractionCount = 67;
+        $searcherExtractionCount = 22;
 
         // starting from 1 since it's used as an existing db id in job searcher
         for ($x = 1; $x <= $searcherExtractionCount; $x++) {
