@@ -44,12 +44,12 @@ printf "SETTING DIRS RIGHTS \n";
 chmod 777 ./var -R && chown www-data:www-data ./var -R;
 
 # make the rotated log files automatically become www-data owned
-chmod g+s var/log/prod/ 2>/dev/null;
-chmod g+s var/log/dev/ 2>/dev/null;
+if test -d var/log/prod/; then chmod g+s var/log/prod/; fi
+if test -d var/log/dev/; then chmod g+s var/log/dev/; fi
 
 # make the rotated log files automatically become 775
-umask 002 var/log/prod/ -R 2>/dev/null
-umask 002 var/log/dev/ -R 2>/dev/null
+if test -d var/log/prod/; then umask 002 var/log/prod/; fi
+if test -d var/log/dev/; then umask 002 var/log/dev/; fi
 
 printf "STARTING SUPERVISOR \n";
 supervisorctl start all;
