@@ -13,8 +13,8 @@ use LogicException;
 class EmailTemplateRestrictionService
 {
     private const MAP_ACCOUNT_TYPE_TO_MAX_TEMPLATES = [
-        AccountType::TYPE_FREE                => 10,
-        AccountType::TYPE_MEMBERSHIP_STANDARD => 15,
+        AccountType::TYPE_FREE                => 50,
+        AccountType::TYPE_MEMBERSHIP_STANDARD => 100,
     ];
 
     public function __construct(
